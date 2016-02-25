@@ -12,11 +12,15 @@
 
 	// VML: more complex
 	has_VML = (function() {
-		var a = document.createElement('div');
-		a.innerHTML = '<v:shape id="vml_flag1" adj="1" />';
-		var b = a.firstChild;
-		b.style.behavior = "url(#default#VML)";
-		return b ? typeof b.adj == "object": true;
+		try {
+			var a = document.createElement('div');
+			a.innerHTML = '<v:shape id="vml_flag1" adj="1" />';
+			var b = a.firstChild;
+			b.style.behavior = "url(#default#VML)";
+			return b ? typeof b.adj === "object": true;
+		} catch (err) {
+			return false;
+		}
 	})();
 
 	if(!(has_canvas || has_VML)) {
